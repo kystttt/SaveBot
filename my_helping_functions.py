@@ -28,7 +28,6 @@ def download_video(url: str)->str:
         ydl.download([url])
     return file_name
 
-
 def delete_file(path: Path)->None:
     """
     Удаляет файл по указанному пути

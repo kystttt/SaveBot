@@ -4,6 +4,7 @@ from my_bot_core.my_bot_handler import BotLogicHandler
 from datetime import datetime
 from telegram import Update, Chat, User, Message
 
+
 @pytest.mark.asyncio
 class TestBotLogic:
     @pytest.fixture(autouse=True)

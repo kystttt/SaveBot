@@ -6,6 +6,7 @@ from my_helping_functions import delete_file
 from pathlib import Path
 import time
 
+
 class BotLogicHandler:
     """
     Класс, где реализована логика бота
