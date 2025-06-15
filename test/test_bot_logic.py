@@ -34,7 +34,8 @@ class TestBotLogic:
         await self.logic.start(self.update, self.context)
         self.context.bot.send_message.assert_awaited_once_with(
             chat_id=self.chat.id,
-            text="Доброго времени суток!\nМожете отправить мне ссылку на видео в тикток и в ответ получите видео"
+            text="Доброго времени суток!\n\nМожете отправить мне ссылку на видео в тикток и в ответ получите видео\n"
+                 "/help - для просмотра актуальных команд"
         )
 
     async def test_bot_reply_help(self):
