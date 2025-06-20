@@ -1,0 +1,47 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      APP_URL: ${{ secrets.APP_URL }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VPS using Docker
+        run: |
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            export BOT_TOKEN="${BOT_TOKEN}"
+            export APP_URL="${APP_URL}"
+
+            cd /home/${USER}/app || git clone https://github.com/${{ github.repository }} /home/${USER}/app && cd /home/${USER}/app
+
+            git pull origin main
+
+            docker stop fastapi-container || true
+            docker rm fastapi-container || true
+
+            docker build -t fastapi-app .
+
+            docker run -d \
+              --name fastapi-container \
+              -p 8080:8080 \
+              -e BOT_TOKEN="$BOT_TOKEN" \
+              -e APP_URL="$APP_URL" \
+              fastapi-app
+          EOF
