@@ -11,10 +11,11 @@ class BotLogicHandler:
     """
     Класс, где реализована логика бота
     """
+
     def __init__(self):
         self.reply_kd = {}
 
-    async def start(self,update: Update, context: ContextTypes.DEFAULT_TYPE):
+    async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """
         Команда /start
         """
@@ -53,16 +54,16 @@ class BotLogicHandler:
             async with httpx.AsyncClient() as client:
                 response = await client.post(
                     "http://localhost:8080/download",
-                    json={"url":video_url},
+                    json={"url": video_url},
                     timeout=300.0)
                 response.raise_for_status()
             json_data = response.json()
             file_path = Path(json_data['path'])
 
             await context.bot.send_video(
-                    chat_id=update.effective_chat.id,
-                    video=file_path.open("rb")
-                )
+                chat_id=update.effective_chat.id,
+                video=file_path.open("rb")
+            )
             self.reply_kd[update.message.chat_id] = time.monotonic()
             delete_file(file_path)
         except Exception:
