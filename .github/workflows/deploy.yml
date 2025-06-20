@@ -16,6 +16,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Check SERVER_IP secret
+        run: echo "SERVER_IP is '${{ secrets.SERVER_IP }}'"
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
