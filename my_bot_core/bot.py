@@ -22,6 +22,5 @@ app_telegram.add_handler(
         (~filters.UpdateType.EDITED), logic.reply_video))
 app_telegram.add_handler(
     MessageHandler(
-        filters.TEXT &
-        ~filters.Regex("^https:\/\/www\.tiktok\.com\/t\/\S*"), logic.error)
+        filters.TEXT, logic.error)
 )
