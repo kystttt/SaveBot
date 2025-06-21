@@ -18,8 +18,8 @@ app_telegram.add_handler(
          filters.Regex("^https:\/\/www\.instagram\.com\/reel.*") |
          filters.Regex("^https:\/\/vkvideo\.ru.*") |
          filters.Regex("^https:\/\/vk\.com\/video.*") |
-         filters.Regex("^https:\/\/vk\.com\/clip.*") |
-         filters.Regex("^https:\/\/rt\.pornhub\.org.*")) &
+          filters.Regex("^https:\/\/vk\.com\/clip.*") |
+         filters.Regex("^https:\/\/rt\.pornhub\.com.*")) &
         (~filters.UpdateType.EDITED), logic.reply_video))
 app_telegram.add_handler(
     MessageHandler(
