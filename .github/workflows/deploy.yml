@@ -25,7 +25,7 @@ jobs:
 
       - name: Deploy to VPS using Docker
         run: |
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << EOF
             export BOT_TOKEN="${BOT_TOKEN}"
             export APP_URL="${APP_URL}"
 
