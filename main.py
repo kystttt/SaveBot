@@ -16,7 +16,8 @@ async def lifespan(app: FastAPI):
     url = APP_URL + WEBHOOK_PATH
     await app_telegram.initialize()
     logging.info(f"Запустили бота")
-    await app_telegram.bot.set_webhook(url)
+    result = await app_telegram.bot.set_webhook(url)
+    logging.info(f"Webhook set result: {result}")
     try:
         yield
     finally:
