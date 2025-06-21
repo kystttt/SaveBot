@@ -55,7 +55,7 @@ class BotLogicHandler:
                 response = await client.post(
                     "http://localhost:8080/download",
                     json={"url": video_url},
-                    timeout=300.0)
+                    timeout=3000.0)
                 response.raise_for_status()
             json_data = response.json()
             file_path = Path(json_data['path'])
