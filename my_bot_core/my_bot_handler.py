@@ -62,8 +62,7 @@ class BotLogicHandler:
 
             await context.bot.send_video(
                 chat_id=update.effective_chat.id,
-                video=file_path.open("rb"),
-                text=TG_BOT_ID
+                video=file_path.open("rb")
             )
             self.reply_kd[update.message.chat_id] = time.monotonic()
             delete_file(file_path)
