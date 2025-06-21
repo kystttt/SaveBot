@@ -17,7 +17,7 @@ def download_video(url: str)->str:
     file_name = str(tmp_dir / f'{url_safe}.mp4')
     ydl_opts = {
         'outtmpl': file_name,
-        'format': 'best[ext=mp4]/best',
+        'format': 'best',
         'merge_output_format': 'mp4',
         'noplaylist': True,
         'quiet': True,
