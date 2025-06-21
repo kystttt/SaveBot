@@ -20,7 +20,8 @@ app_telegram.add_handler(
     MessageHandler(
         filters.TEXT &
         (filters.Regex("^https:\/\/vkvideo\.ru.*") |
-         filters.Regex("^https:\/\/vk\.com\/video.*")) &
+         filters.Regex("^https:\/\/vk\.com\/video.*") |
+         filters.Regex("^https:\/\/vk\.com\/clip.*")) &
         (~filters.UpdateType.EDITED), logic.reply_video))
 app_telegram.add_handler(
     MessageHandler(
