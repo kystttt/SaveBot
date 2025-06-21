@@ -13,7 +13,8 @@ app_telegram.add_handler(CommandHandler('help', logic.help))
 app_telegram.add_handler(
     MessageHandler(
         filters.TEXT &
-        filters.Regex("^https:\/\/www\.tiktok\.com\/t\/\S*") &
+        (filters.Regex("^https:\/\/www\.tiktok\.com\/t\/\S*") |
+         filters.Regex("^https:\/\/vt\.tiktok\.com.*\/S*")) &
         (~filters.UpdateType.EDITED), logic.reply_video))
 app_telegram.add_handler(
     MessageHandler(
