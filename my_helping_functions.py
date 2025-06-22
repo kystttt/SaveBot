@@ -1,4 +1,4 @@
-import os
+import logging
 import yt_dlp
 from pathlib import Path
 from urllib.parse import quote_plus
@@ -32,4 +32,7 @@ def delete_file(path: Path)->None:
     """
     Удаляет файл по указанному пути
     """
-    os.remove(path)
+    try:
+        path.unlink(missing_ok=True)
+    except Exception as e:
+        logging.error(e)

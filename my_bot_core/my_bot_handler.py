@@ -5,6 +5,7 @@ import httpx
 from my_helping_functions import delete_file
 from pathlib import Path
 import time
+import logging
 
 
 class BotLogicHandler:
@@ -41,6 +42,7 @@ class BotLogicHandler:
         Также есть антиспам проверка, нельзя скачивать видео чаще, чем раз в 5 секунд.
         """
         video_url = update.message.text
+        file_path = None
         try:
 
             async with httpx.AsyncClient() as client:
@@ -66,12 +68,18 @@ class BotLogicHandler:
                 caption=TG_BOT_ID
             )
             self.reply_kd[update.message.chat_id] = time.monotonic()
-            delete_file(file_path)
         except Exception:
             await context.bot.send_message(
                 chat_id=update.effective_chat.id,
                 text=ERROR_VIDEO_EXC
             )
+
+        finally:
+            if file_path and file_path.exists():
+                try:
+                    delete_file(file_path)
+                except Exception as e:
+                    logging.error(e)
 
     async def error(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """
