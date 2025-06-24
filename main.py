@@ -29,7 +29,6 @@ app = FastAPI(lifespan=lifespan)
 @app.post(WEBHOOK_PATH)
 async def receive_update(request: Request):
     data = await request.json()
-    logging.info("Получен update: %s", data)
     update = Update.de_json(data, app_telegram.bot)
     await app_telegram.process_update(update)
     return {"ok": True}
