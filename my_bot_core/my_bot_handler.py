@@ -44,12 +44,11 @@ class BotLogicHandler:
         video_url = update.message.text
         file_path = None
         try:
-
             async with httpx.AsyncClient() as client:
                 response = await client.post(
                     "http://localhost:8080/download",
                     json={"url": video_url},
-                    timeout=300.0)
+                    timeout=180.0)
                 response.raise_for_status()
             json_data = response.json()
             file_path = Path(json_data['path'])
@@ -62,6 +61,12 @@ class BotLogicHandler:
                     )
                     return
                 self.reply_kd[update.message.chat_id] = time.monotonic()
+            if file_path == "Big size":
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id,
+                    text=ERROR_BIG_SIZE
+                )
+
             await context.bot.send_video(
                 chat_id=update.effective_chat.id,
                 video=file_path.open("rb"),
