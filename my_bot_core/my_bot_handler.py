@@ -61,11 +61,12 @@ class BotLogicHandler:
                     )
                     return
                 self.reply_kd[update.message.chat_id] = time.monotonic()
-            if file_path == "Big size":
+            if file_path != "Big size":
                 await context.bot.send_message(
                     chat_id=update.effective_chat.id,
                     text=ERROR_BIG_SIZE
                 )
+                return
 
             await context.bot.send_video(
                 chat_id=update.effective_chat.id,
