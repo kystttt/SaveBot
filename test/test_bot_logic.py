@@ -51,7 +51,7 @@ class TestBotLogic:
         await self.logic.help(self.update, self.context)
         self.context.bot.send_message.assert_awaited_once_with(
             chat_id=self.chat.id,
-            text="Это бот для скачивания видео\n"
+            text="Это бот для скачивания видео.\n"
                 "Отправьте ссылку на видео в тикток/вк/ютуб, для того, чтобы скачать.\n\n\n"
                 "Список доступных команд:\n"
                 "/start - Выводит приветственное сообщение\n"
