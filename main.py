@@ -30,6 +30,7 @@ app = FastAPI(lifespan=lifespan)
 async def receive_update(request: Request):
     data = await request.json()
     update = Update.de_json(data, app_telegram.bot)
+    logging.info(f"Update получен: {update}")
     await app_telegram.process_update(update)
     return {"ok": True}
 @app.get("/")

@@ -20,7 +20,7 @@ def download_video(url: str)->str:
     ydl_opts = {
         'max_filesize': 25 * 1024 * 1024,
         'outtmpl': file_name,
-        'format': 'best[height<=720][ext=mp4]',
+        'format': 'best[height<=1080][ext=mp4]',
         'merge_output_format': 'mp4',
         'noplaylist': True,
         'quiet': True,
